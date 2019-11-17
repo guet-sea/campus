@@ -1,0 +1,56 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://47.103.202.20:3306/campus?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useSSL=false
+      username: root
+      password:
+      initial-size: 5
+      max-wait: 600000
+  http:
+    multipart:
+      #springmvc最大上传大小
+      max-file-size: 50Mb
+      max-request-size: 200Mb
+      #物理地址
+      location: D:/upload/picture/
+  resources:
+    #静态资源所在的地址
+    static-locations: file:${spring.http.multipart.location}
+  mvc:
+    #表示所有的访问都经过静态资源路径
+    static-path-pattern: /media/**
+
+mybatis:
+  #自定义mapper配置路径
+  mapper-locations: classpath:mapper/*.xml
+  #实体类所在包
+  type-aliases-package: com.sea.bean
+  configuration:
+    #开启驼峰
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+#配置mybatis分页插件
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+  returnPageInfo: check
+
+#通用mapper
+mapper:
+  #mapper模板在的目录，不可和自己写的mapper同名且不能在同一文件夹下
+  mappers: com.sea.mappers
+  identity: mysql
+
+
+
+logging:
+  config: classpath:logback-spring.xml
+  path: D:/nmyslog/nmys
