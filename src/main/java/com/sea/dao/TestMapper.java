@@ -1,15 +1,11 @@
 package com.sea.dao;
 
-import com.sea.bean.User;
+import com.sea.bean.Test;
 import com.sea.mappers.MyMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
-@Mapper
 @Repository
-public interface UserMapper extends MyMapper<User> {
-
-    //List<User> queryUserList();
+@Mapper
+public interface TestMapper  extends MyMapper<Test> {
 }

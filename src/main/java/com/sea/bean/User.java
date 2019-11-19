@@ -4,29 +4,33 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Table(name = "user")
 public class User {
-
     private Integer id;
 
     @Id
     @Column(name = "userName")
     private String userName;
 
-    private String password;
+    private  String password;
+
+    private String sex;
+
+    private String tel;
 
     private String school;
+
+    private Integer integral;
 
     @Column(name = "newUser")
     private String newUser;
 
-    private String question;
+    private  String type;
+
+    private  String question;
 
     private String answer;
 
-    private String type;
-
-    private String sex;
+    private String status;
 
     public Integer getId() {
         return id;
@@ -52,6 +56,22 @@ public class User {
         this.password = password;
     }
 
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
     public String getSchool() {
         return school;
     }
@@ -60,12 +80,28 @@ public class User {
         this.school = school;
     }
 
+    public Integer getIntegral() {
+        return integral;
+    }
+
+    public void setIntegral(Integer integral) {
+        this.integral = integral;
+    }
+
     public String getNewUser() {
         return newUser;
     }
 
     public void setNewUser(String newUser) {
         this.newUser = newUser;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getQuestion() {
@@ -84,20 +120,12 @@ public class User {
         this.answer = answer;
     }
 
-    public String getType() {
-        return type;
+    public String getStatus() {
+        return status;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override
@@ -106,12 +134,15 @@ public class User {
                 "id=" + id +
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
+                ", sex='" + sex + '\'' +
+                ", tel='" + tel + '\'' +
                 ", school='" + school + '\'' +
+                ", integral=" + integral +
                 ", newUser='" + newUser + '\'' +
+                ", type='" + type + '\'' +
                 ", question='" + question + '\'' +
                 ", answer='" + answer + '\'' +
-                ", type='" + type + '\'' +
-                ", sex='" + sex + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 }
