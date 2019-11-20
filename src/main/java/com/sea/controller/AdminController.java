@@ -2,10 +2,8 @@ package com.sea.controller;
 
 import com.sea.bean.User;
 import com.sea.dao.UserMapper;
-import org.apache.ibatis.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,10 +21,14 @@ public class AdminController {
     @Autowired
     private UserMapper userMapper;
 
+    //查询普通用户
     @ResponseBody
     @RequestMapping("/getUsers")
     public List<User> getUsers(){
-        return userMapper.selectAll();
+        Example example=new Example(User.class);
+        Example.Criteria criteria=example.createCriteria();
+        criteria.andEqualTo("type","normal");
+        return userMapper.selectByExample(example);
     }
 
     @ResponseBody
