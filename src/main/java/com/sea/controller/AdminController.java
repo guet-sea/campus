@@ -13,8 +13,6 @@ import tk.mybatis.mapper.entity.Example;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
-
 @Controller
 @RequestMapping("/Admin")
 public class AdminController {
@@ -97,5 +95,27 @@ public class AdminController {
         return userMapper.selectByPrimaryKey(userName);
     }
 
-
+    @ResponseBody
+    @PostMapping("/addAdmin")
+    public Map<String,String> addAdmin(String userName,String password){
+        User user=new User();
+        User dbUser=userMapper.selectByPrimaryKey(userName);
+        Map<String,String> result=new HashMap<>();
+        if (dbUser==null){
+            user.setUserName(userName);
+            user.setType("admin");
+            user.setPassword(password);
+            int n= userMapper.insert(user);
+            if (n>0){
+                result.put("msg","成功");
+                return result;
+            }else{
+                result.put("msg","失败");
+                return result;
+            }
+        }else {
+            result.put("msg","用户名已存在");
+        }
+        return  result;
+    }
 }

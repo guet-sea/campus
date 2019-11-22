@@ -11,5 +11,6 @@ import java.util.List;
 @Repository
 public interface UserMapper extends MyMapper<User> {
 
-    //List<User> queryUserList();
+    List<User> queryUserList();
+    int updateUserTel(User user);
 }

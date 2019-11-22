@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e90a09e8-4b30-4e45-97f3-1eb388b6e800" name="Default Changelist" comment="" />
+    <list default="true" id="e90a09e8-4b30-4e45-97f3-1eb388b6e800" name="Default Changelist" comment="完善用户控制器功能">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sea/controller/GoodsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sea/bean/Favorites.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sea/bean/Favorites.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sea/bean/Goods.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sea/bean/Goods.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sea/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sea/controller/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sea/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sea/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sea/dao/GoodsMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sea/dao/GoodsMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sea/dao/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sea/dao/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/UserMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/sea/bean/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sea/bean/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/sea/controller/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sea/controller/AdminController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/sea/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sea/controller/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/sea/dao/UserMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sea/dao/UserMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapper/UserMapper.xml" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,11 +42,20 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="PATH_TO_GIT" value="E:\Git\bin\git.exe" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+  </component>
   <component name="ProjectId" id="1TatHaX0ASCVml1aSPJ1UC3cviU" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RequestMappingsPanelOrder0" value="0" />
@@ -38,15 +64,17 @@
     <property name="RequestMappingsPanelWidth0" value="75" />
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RequestMappingsPanelWidth2" value="75" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../SpringBootWeb" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/sea/bean" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -56,6 +84,8 @@
       <recent name="" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\IdeaProjects\campus\src\main\java\com\sea\bean" />
+      <recent name="D:\IdeaProjects\campus\src\main\resources\mapper" />
       <recent name="D:\IdeaProjects\campus\src\main\java\com\sea\shiro" />
       <recent name="D:\IdeaProjects\campus\src\main\resources" />
     </key>
@@ -117,10 +147,34 @@
       <workItem from="1573712496085" duration="6160000" />
       <workItem from="1573720010699" duration="23757000" />
       <workItem from="1573786715545" duration="7129000" />
+      <workItem from="1574060971614" duration="9552000" />
+      <workItem from="1574076416532" duration="6578000" />
+      <workItem from="1574132749151" duration="21740000" />
+      <workItem from="1574218341033" duration="2110000" />
+      <workItem from="1574253627113" duration="13658000" />
+      <workItem from="1574346327966" duration="108000" />
+      <workItem from="1574391114142" duration="2803000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="完善用户控制器功能" />
+    <option name="LAST_COMMIT_MESSAGE" value="完善用户控制器功能" />
   </component>
 </project>

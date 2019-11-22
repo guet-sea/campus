@@ -14,6 +14,7 @@ public class Goods {
 
     private String title;
 
+    @Column(name = "description")
     private String describe;
 
     private String picture;
@@ -29,6 +30,7 @@ public class Goods {
     @Column(name = "freightCharge")
     private BigDecimal freightCharge;
 
+    @Column(name = "status")
     private String status;
 
     public Integer getId() {
