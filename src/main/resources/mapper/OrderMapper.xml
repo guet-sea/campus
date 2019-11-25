@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sea.dao.OrderMapper">
+    <resultMap id="BaseResultMap" type="com.sea.bean.GoodOrder">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="sellerId" jdbcType="INTEGER" property="sellerid" />
+        <result column="goodsId" jdbcType="INTEGER" property="goodsid" />
+        <result column="buyerId" jdbcType="INTEGER" property="buyerid" />
+        <result column="address" jdbcType="VARCHAR" property="address" />
+        <result column="tel" jdbcType="VARCHAR" property="tel" />
+        <result column="price" jdbcType="DECIMAL" property="price" />
+        <result column="freghtCharge" jdbcType="DECIMAL" property="freghtcharge" />
+        <result column="discounts" jdbcType="DECIMAL" property="discounts" />
+        <result column="finalPrice" jdbcType="DECIMAL" property="finalprice" />
+        <result column="orderNum" jdbcType="VARCHAR" property="ordernum" />
+        <result column="ordertime" jdbcType="VARCHAR" property="ordertime" />
+        <result column="school" jdbcType="VARCHAR" property="school" />
+        <result column="orderstatus" jdbcType="VARCHAR" property="orderstatus" />
+    </resultMap>
+</mapper>
