@@ -91,8 +91,15 @@ public class AdminController {
 
     @PostMapping("/getUser")
     @ResponseBody
-    public User getUser(@RequestParam(name = "userName")String userName){
-        return userMapper.selectByPrimaryKey(userName);
+    public Map<String,String> getUser(@RequestParam(name = "userName")String userName){
+        Map<String,String> map=new HashMap<>();
+        User dbUser=userMapper.selectByPrimaryKey(userName);
+        if (dbUser==null){
+            map.put("msg","ok");
+        }else {
+            map.put("msg","error");
+        }
+        return map;
     }
 
     @ResponseBody

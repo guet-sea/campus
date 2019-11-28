@@ -5,6 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 public class User {
+
     private Integer id;
 
     @Id
@@ -31,6 +32,9 @@ public class User {
     private String answer;
 
     private String status;
+
+    @Column(name="headPortrait")
+    private String headPortrait;
 
     public Integer getId() {
         return id;
@@ -128,6 +132,14 @@ public class User {
         this.status = status;
     }
 
+    public String getHeadPortrait() {
+        return headPortrait;
+    }
+
+    public void setHeadPortrait(String headPortrait) {
+        this.headPortrait = headPortrait;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -143,6 +155,7 @@ public class User {
                 ", question='" + question + '\'' +
                 ", answer='" + answer + '\'' +
                 ", status='" + status + '\'' +
+                ", headPortrait='" + headPortrait + '\'' +
                 '}';
     }
 }

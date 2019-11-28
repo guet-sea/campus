@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sea.dao.GoodsMapper" >
+    <select id="searchLikeByTitleOrDescribe" parameterType="String" resultType="com.sea.bean.Goods">
+        select distinct id,picture,sellingPrice,title from goods where (title like '%${key}%'  or description like '%${key}%')and status='在售'
+    </select>
+
+</mapper>

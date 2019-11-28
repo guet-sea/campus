@@ -1,7 +1,9 @@
 package com.sea.bean;
 
 import javax.persistence.Column;
+import javax.persistence.Transient;
 import java.math.BigDecimal;
+import java.util.List;
 
 public class Goods {
 
@@ -17,7 +19,9 @@ public class Goods {
     @Column(name = "description")
     private String describe;
 
-    private String picture;
+
+    @Transient
+    private List<String> picture;
 
     private String school;
 
@@ -73,12 +77,12 @@ public class Goods {
         this.describe = describe;
     }
 
-    public String getPicture() {
+    public List<String> getPicture() {
         return picture;
     }
 
     public void setPicture(String picture) {
-        this.picture = picture;
+        this.picture.add(picture);
     }
 
     public String getSchool() {
@@ -129,7 +133,7 @@ public class Goods {
                 ", type='" + type + '\'' +
                 ", title='" + title + '\'' +
                 ", describe='" + describe + '\'' +
-                ", picture='" + picture + '\'' +
+                ", picture=" + picture +
                 ", school='" + school + '\'' +
                 ", originalPrice=" + originalPrice +
                 ", sellingPrice=" + sellingPrice +

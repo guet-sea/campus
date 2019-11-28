@@ -2,7 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e90a09e8-4b30-4e45-97f3-1eb388b6e800" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sea/utils/JwtHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/mapper/GoodsMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sea/bean/Goods.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sea/bean/Goods.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sea/bean/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sea/bean/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sea/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sea/controller/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sea/controller/GoodsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sea/controller/GoodsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sea/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sea/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sea/dao/GoodsMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sea/dao/GoodsMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/UserMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/sea/bean/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sea/bean/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/sea/controller/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sea/controller/AdminController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/sea/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sea/controller/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapper/UserMapper.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -41,6 +56,7 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
+    <option name="UPDATE_TYPE" value="MERGE" />
   </component>
   <component name="ProjectId" id="1TatHaX0ASCVml1aSPJ1UC3cviU" />
   <component name="ProjectLevelVcsManager">
@@ -57,14 +73,14 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/sea/bean" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/sea/utils" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -74,8 +90,9 @@
       <recent name="" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\IdeaProjects\campus\src\main\java\com\sea\bean" />
+      <recent name="D:\IdeaProjects\campus\src\main\java\com\sea\utils" />
       <recent name="D:\IdeaProjects\campus\src\main\resources\mapper" />
+      <recent name="D:\IdeaProjects\campus\src\main\java\com\sea\bean" />
       <recent name="D:\IdeaProjects\campus\src\main\java\com\sea\shiro" />
       <recent name="D:\IdeaProjects\campus\src\main\resources" />
     </key>
@@ -92,7 +109,20 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Spring Boot.CampusContext">
+    <configuration name="JwtHelper" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.sea.utils.JwtHelper" />
+      <module name="campus" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.sea.utils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="CampusContext" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="campus" />
       <extension name="coverage">
@@ -106,6 +136,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.JwtHelper" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="ServiceViewManager">
     <option name="allServicesViewState">
@@ -143,7 +178,12 @@
       <workItem from="1574218341033" duration="2110000" />
       <workItem from="1574253627113" duration="13658000" />
       <workItem from="1574346327966" duration="108000" />
-      <workItem from="1574391114142" duration="3065000" />
+      <workItem from="1574391114142" duration="9554000" />
+      <workItem from="1574509808566" duration="8042000" />
+      <workItem from="1574564478617" duration="4329000" />
+      <workItem from="1574757235430" duration="3513000" />
+      <workItem from="1574820182615" duration="26517000" />
+      <workItem from="1574934629465" duration="2556000" />
     </task>
     <task id="LOCAL-00001" summary="完善用户控制器功能和修改数据表冲突项">
       <created>1574425883253</created>
