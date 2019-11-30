@@ -1,13 +1,15 @@
 package com.sea.controller;
 
+import com.sea.bean.Goods;
 import com.sea.bean.User;
+import com.sea.dao.GoodsMapper;
 import com.sea.dao.UserMapper;
+import com.sea.utils.Utils;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.HashMap;
@@ -19,10 +21,13 @@ public class AdminController {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private GoodsMapper goodsMapper;
+
     //查询普通用户
     @ResponseBody
     @RequestMapping("/getUsers")
-    public List<User> getUsers(){
+    public List<User> getUsers(@RequestHeader(value = "Authorization",required = false) String token){
         Example example=new Example(User.class);
         Example.Criteria criteria=example.createCriteria();
         criteria.andEqualTo("type","normal");
@@ -31,7 +36,7 @@ public class AdminController {
 
     @ResponseBody
     @PostMapping("/addUser")
-    public Map<String,Object> addUser(String userName,String password,String school,String question,String answer,String sex,String type){
+    public Map<String,Object> addUser(@RequestHeader(value = "Authorization",required = false) String token,String userName,String password,String school,String question,String answer,String sex,String type){
         User user=new User();
         Map<String,Object> result=new HashMap<>();
         if (userMapper.selectByPrimaryKey(userName)==null){
@@ -44,18 +49,18 @@ public class AdminController {
             user.setType(type);
             user.setNewUser("是");
             userMapper.insert(user);
-            result.put("code",200);
-            result.put("msg","注册成功！");
+            //result.put("code",200);
+            result.put("msg","ok");
         }else {
-            result.put("code",201);
-            result.put("msg","用户已注册！");
+            //result.put("code",201);
+            result.put("msg","error userName exist");
         }
         return result;
     }
 
     @PostMapping("/updateUser")
     @ResponseBody
-    public Map<String,Object> updateUser(String userName, String password, String school, String question, String answer, String sex){
+    public Map<String,Object> updateUser(@RequestHeader(value = "Authorization",required = false) String token,String userName, String password, String school, String question, String answer, String sex){
         Map<String,Object> result=new HashMap<>();
         User user=userMapper.selectByPrimaryKey(userName);
         if(password!=null&&!user.getPassword().equals(password)){
@@ -75,7 +80,7 @@ public class AdminController {
         }
         System.out.println(user);
         int n= userMapper.updateByPrimaryKey(user);
-        if (n>0) result.put("msg","更新成功！");
+        if (n>0) result.put("msg","ok");
         return result;
     }
 
@@ -85,7 +90,7 @@ public class AdminController {
         System.out.println(userName);
         userMapper.deleteByPrimaryKey(userName);
         Map<String,Object> result=new HashMap<>();
-        result.put("msg","删除成功！");
+        result.put("msg","ok");
         return result;
     }
 
@@ -114,15 +119,79 @@ public class AdminController {
             user.setPassword(password);
             int n= userMapper.insert(user);
             if (n>0){
-                result.put("msg","成功");
+                result.put("msg","ok");
                 return result;
             }else{
-                result.put("msg","失败");
+                result.put("msg","error");
                 return result;
             }
         }else {
-            result.put("msg","用户名已存在");
+            result.put("msg","userName exist");
         }
         return  result;
     }
+
+    @ResponseBody
+    @RequestMapping("/getAllGoods")
+    public List<Goods> getAllGoods(){
+        return goodsMapper.selectAll();
+    }
+
+    @ResponseBody
+    @RequestMapping("/getGoodsOnSell")
+    public List<Goods> getGoodsOnSell(){
+        Example example=new Example(Goods.class);
+        Example.Criteria criteria=example.createCriteria();
+        criteria.andEqualTo("status","在售");
+        return goodsMapper.selectByExample(example);
+    }
+
+    @ResponseBody
+    @RequestMapping("/deleteGoods")
+    public String deleteGoods(Integer id) throws JSONException {
+        int n=goodsMapper.deleteByPrimaryKey(id);
+        JSONObject result=new JSONObject();
+        if (n>0)result.put("msg","ok");
+        else result.put("msg","error");
+        return result.toString();
+    }
+
+    @RequestMapping("/updateGoods")
+    public String updateGoods(){
+        return "forward:/Goods/updateGoods";
+    }
+
+    @RequestMapping("/addGoods")
+    public String addGoods(){
+        return "forWard:/Goods/releaseGoods";
+    }
+
+    @RequestMapping("/getGoods")
+    public String getGoods(){
+        return "forward:/Goods/getGoods";
+    }
+
+    @RequestMapping("/searchGoodsOnSell")
+    public String searchGoodsOnSell(){
+        return "forward:/Goods/searchLike";
+    }
+
+    @ResponseBody
+    @PostMapping("/searchGoods")
+    public List<Goods> searchGoods(String key){
+        Example example=new Example(Goods.class);
+        Example.Criteria criteria=example.createCriteria();
+        criteria.andLike("title", Utils.getLike(key));
+        criteria.orLike("describe",Utils.getLike(key));
+        List<Goods> list=goodsMapper.selectByExample(example);
+        for (int i=0;i<list.size();i++){
+            int id=list.get(i).getUserId();
+            list.get(i).setHeadPortrait(userMapper.queryUserById(id).getHeadPortrait());
+        }
+        return list;
+    }
+
+
+
+
 }

@@ -185,5 +185,10 @@ public class UserController {
         return result;
     }
 
+    @RequestMapping("/index")
+    public String index(){
+        return "forward:/Goods/index";
+    }
+
 
 }

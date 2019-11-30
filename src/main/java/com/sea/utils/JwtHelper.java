@@ -86,7 +86,7 @@ public class JwtHelper {
         }
         return user_id_claim.asString();
     }
-    public Date getExpiresTime(String token) {
+    public static Date getExpiresTime(String token) {
     	DecodedJWT jwt = null;
     	Date expiresTime=null;
         try {
@@ -109,6 +109,7 @@ public class JwtHelper {
         Claim userNameClaim = claims.get("userName");
         if (null == userNameClaim || StringUtils.isEmpty(userNameClaim.asString())) {
             // token 校验失败, 抛出Token验证非法异常
+            System.out.println("token 校验失败");
             return null;
         }
         return userNameClaim.asString();
@@ -117,13 +118,13 @@ public class JwtHelper {
 
     public static void main(String[] args) {
         try {
-            //String token=JwtHelper.createToken("666");
-            String token="1eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJXRUIiLCJpc3MiOiJTZXJ2aWNlIiwidXNlck5hbWUiOiI2NjYiLCJleHAiOjE1NzQ4NDI3MDgsImlhdCI6MTU3NDgzMTkwOH0.VoDA2mSJy2Gi1CSh_HpEtxYvuZE9mP3yhKyR_iXa89g";
+            String token=JwtHelper.createToken("root");
+//            String token="1eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJXRUIiLCJpc3MiOiJTZXJ2aWNlIiwidXNlck5hbWUiOiI2NjYiLCJleHAiOjE1NzQ4NDI3MDgsImlhdCI6MTU3NDgzMTkwOH0.VoDA2mSJy2Gi1CSh_HpEtxYvuZE9mP3yhKyR_iXa89g";
             System.out.println(token);
             System.out.println(JwtHelper.getUserName(token));
-            String s=null;
-            s=token;
-            System.out.println(s);
+            Date s=null;
+            s=JwtHelper.getExpiresTime(token);
+            System.out.println(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(s));
         } catch (Exception e) {
             e.printStackTrace();
         }

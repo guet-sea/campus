@@ -1,20 +1,29 @@
 package com.sea.bean;
 
 import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
+@Table(name = "leaveWord")
 public class LeaveWord {
 
+    @Id
     private Integer id;
 
-    @Column(name = "userId")
-    private Integer userId;
+    @Column(name = "userName")
+    private String userName;
 
     @Column(name = "goodsId")
     private Integer goodsId;
 
     private String content;
 
+    @Column(name = "messageTime")
     private String time;
+
+    @Transient
+    private String headPortrait;
 
     public Integer getId() {
         return id;
@@ -24,12 +33,12 @@ public class LeaveWord {
         this.id = id;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public String getHeadPortrait() {
+        return headPortrait;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setHeadPortrait(String headPortrait) {
+        this.headPortrait = headPortrait;
     }
 
     public Integer getGoodsId() {
@@ -56,11 +65,19 @@ public class LeaveWord {
         this.time = time;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     @Override
     public String toString() {
         return "LeaveWord{" +
                 "id=" + id +
-                ", userId=" + userId +
+                ", userName='" + userName + '\'' +
                 ", goodsId=" + goodsId +
                 ", content='" + content + '\'' +
                 ", time='" + time + '\'' +

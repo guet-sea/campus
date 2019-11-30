@@ -4,14 +4,14 @@ import javax.persistence.Column;
 
 public class Evaluation {
 
-    @Column(name = "userId")
-    private Integer userId;
+    @Column(name = "userName")
+    private String userName;
 
-    @Column(name = "buyerId")
-    private Integer buyerId;
+    @Column(name = "buyerUserName")
+    private String buyerUserName;
 
-    @Column(name = "sellerId")
-    private Integer sellerId;
+    @Column(name = "sellerUserName")
+    private String sellerUserName;
 
     @Column(name = "goodsId")
     private Integer goodsId;
@@ -20,28 +20,28 @@ public class Evaluation {
 
     private String time;
 
-    public Integer getUserId() {
-        return userId;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public Integer getBuyerId() {
-        return buyerId;
+    public String getBuyerUserName() {
+        return buyerUserName;
     }
 
-    public void setBuyerId(Integer buyerId) {
-        this.buyerId = buyerId;
+    public void setBuyerUserName(String buyerUserName) {
+        this.buyerUserName = buyerUserName;
     }
 
-    public Integer getSellerId() {
-        return sellerId;
+    public String getSellerUserName() {
+        return sellerUserName;
     }
 
-    public void setSellerId(Integer sellerId) {
-        this.sellerId = sellerId;
+    public void setSellerUserName(String sellerUserName) {
+        this.sellerUserName = sellerUserName;
     }
 
     public Integer getGoodsId() {
@@ -66,17 +66,5 @@ public class Evaluation {
 
     public void setTime(String time) {
         this.time = time;
-    }
-
-    @Override
-    public String toString() {
-        return "Evaluation{" +
-                "userId=" + userId +
-                ", buyerId=" + buyerId +
-                ", sellerId=" + sellerId +
-                ", goodsId=" + goodsId +
-                ", content='" + content + '\'' +
-                ", time='" + time + '\'' +
-                '}';
     }
 }

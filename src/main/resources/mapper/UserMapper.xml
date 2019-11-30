@@ -22,5 +22,8 @@
     <update id="updateUserTel"  parameterType="com.sea.bean.User"  >
         update user set tel =#{tel,jdbcType=VARCHAR} where userName=#{userName,jdbcType=VARCHAR}
     </update>
+    <select id="queryUserById" parameterType="int" resultType="com.sea.bean.User">
+        select * from user where id=#{id}
+    </select>
 
 </mapper>

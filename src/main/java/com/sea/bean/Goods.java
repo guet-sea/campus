@@ -1,12 +1,14 @@
 package com.sea.bean;
 
 import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.persistence.Transient;
 import java.math.BigDecimal;
 import java.util.List;
 
 public class Goods {
 
+    @Id
     private Integer id;
 
     @Column(name = "userId")
@@ -19,9 +21,11 @@ public class Goods {
     @Column(name = "description")
     private String describe;
 
-
     @Transient
-    private List<String> picture;
+    private List<String> pictures;
+
+    @Column(name = "picture")
+    private String picture;
 
     private String school;
 
@@ -36,6 +40,17 @@ public class Goods {
 
     @Column(name = "status")
     private String status;
+
+    @Transient
+    private String headPortrait;
+
+    public String getHeadPortrait() {
+        return headPortrait;
+    }
+
+    public void setHeadPortrait(String headPortrait) {
+        this.headPortrait = headPortrait;
+    }
 
     public Integer getId() {
         return id;
@@ -77,12 +92,20 @@ public class Goods {
         this.describe = describe;
     }
 
-    public List<String> getPicture() {
+    public List<String> getPictures() {
+        return pictures;
+    }
+
+    public void setPictures(List<String> pictures) {
+        this.pictures = pictures;
+    }
+
+    public String getPicture() {
         return picture;
     }
 
     public void setPicture(String picture) {
-        this.picture.add(picture);
+        this.picture = picture;
     }
 
     public String getSchool() {
@@ -133,7 +156,8 @@ public class Goods {
                 ", type='" + type + '\'' +
                 ", title='" + title + '\'' +
                 ", describe='" + describe + '\'' +
-                ", picture=" + picture +
+                ", pictures=" + pictures +
+                ", picture='" + picture + '\'' +
                 ", school='" + school + '\'' +
                 ", originalPrice=" + originalPrice +
                 ", sellingPrice=" + sellingPrice +

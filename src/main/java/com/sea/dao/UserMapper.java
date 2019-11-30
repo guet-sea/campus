@@ -13,4 +13,5 @@ public interface UserMapper extends MyMapper<User> {
 
     List<User> queryUserList();
     int updateUserTel(User user);
+    User queryUserById(int id);
 }

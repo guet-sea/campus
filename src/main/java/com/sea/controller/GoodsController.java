@@ -42,11 +42,11 @@ public class GoodsController {
             result.put("msg","userName not exist");
             return result;
         }
-        //List <String> pictureList=new ArrayList<>();
+        List <String> pictureList=new ArrayList<>();
         goods.setType(type);
         goods.setTitle(title);
         goods.setDescribe(describe);
-        //pictureList.add(picture);
+        pictureList.add(picture);
         goods.setPicture(picture);
         goods.setSchool(school);
         goods.setSellingPrice(sellingPrice);
@@ -54,6 +54,7 @@ public class GoodsController {
         goods.setUserId(dbUser.getId());
         goods.setStatus("在售");
         goods.setFreightCharge(freightCharge);
+        goods.setHeadPortrait(dbUser.getHeadPortrait());
         int n=goodsMapper.insert(goods);
         if (n>0){
             result.put("msg","ok");
@@ -71,8 +72,13 @@ public class GoodsController {
         Iterator<Goods> iterator=list.iterator();
         while (iterator.hasNext()){
             goodsList.add(iterator.next());
-            String [] strings=goodsList.get(goodsList.size()-1).getPicture().get(0).split(",");
+            String [] strings=goodsList.get(goodsList.size()-1).getPicture().split(",");
             goodsList.get(goodsList.size()-1).setPicture(strings[0]);
+            Goods goods=goodsList.get(goodsList.size()-1);
+            Example example=new Example(User.class);
+            Example.Criteria criteria=example.createCriteria();
+            criteria.andEqualTo("id",goods.getUserId());
+            goodsList.get(goodsList.size()-1).setHeadPortrait(userMapper.selectOneByExample(example).getHeadPortrait());
          }
         return list;
     }
@@ -87,7 +93,7 @@ public class GoodsController {
         if (title!=null)goods.setTitle(title);
         if (describe!=null)goods.setDescribe(describe);
         if (picture!=null)goods.setPicture(picture);
-        if (school!=null)goods.setPicture(picture);
+        if (school!=null)goods.setSchool(school);
         if (originalPrice!=null)goods.setOriginalPrice(originalPrice);
         if (sellingPrice!=null)goods.setSellingPrice(sellingPrice);
         if (freightCharge!=null)goods.setFreightCharge(freightCharge);
@@ -104,7 +110,28 @@ public class GoodsController {
     @PostMapping("/getGoods")
     @ResponseBody
     public Goods  getGoods(Integer id){
-        return goodsMapper.selectByPrimaryKey(id);
+        Goods goods=goodsMapper.selectByPrimaryKey(id);
+        String [] pictures=goods.getPicture().split(",");
+        goods.setPictures(Arrays.asList(pictures));
+        return goods;
+    }
+
+    @ResponseBody
+    @RequestMapping("/index")
+    public List<Goods> index(){
+        List<Goods> goodsList=goodsMapper.enquiryForLatestTen();
+        Iterator<Goods> iterator=goodsList.iterator();
+        while (iterator.hasNext()){
+            Goods goods= iterator.next();
+            int n=goodsList.indexOf(goods);
+            Example example=new Example(User.class);
+            Example.Criteria criteria=example.createCriteria();
+            criteria.andEqualTo("id",goods.getUserId());
+            goods.setHeadPortrait(userMapper.selectOneByExample(example).getHeadPortrait());
+            String [] picture=goodsList.get(n).getPicture().split(",");
+            goodsList.get(n).setPicture(picture[0]);
+        }
+        return goodsList;
     }
 
 
