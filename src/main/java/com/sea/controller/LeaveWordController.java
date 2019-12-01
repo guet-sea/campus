@@ -28,11 +28,11 @@ public class LeaveWordController {
     @PostMapping("/getGoodsLeaveWord")
     public List<LeaveWord> getGoodsLeaveWord(Integer goodsId){
         if (goodsId!=null){
-            //List<LeaveWord> leaveWords=leaveWordMapper.enquiryGoodsLeaveWord(goodsId);
-            Example example=new Example(LeaveWord.class);
-            Example.Criteria criteria=example.createCriteria();
-            criteria.andEqualTo("goodsId",goodsId);
-            List<LeaveWord> leaveWords=leaveWordMapper.selectByExample(example);
+            List<LeaveWord> leaveWords=leaveWordMapper.enquiryGoodsLeaveWord(goodsId);
+//            Example example=new Example(LeaveWord.class);
+//            Example.Criteria criteria=example.createCriteria();
+//            criteria.andEqualTo("goodsId",goodsId);
+//            List<LeaveWord> leaveWords=leaveWordMapper.selectByExample(example);
             for (int i=0;i<leaveWords.size();i++){
                 String userName=leaveWords.get(i).getUserName();
                 User user=userMapper.selectByPrimaryKey(userName);

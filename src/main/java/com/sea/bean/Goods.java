@@ -14,6 +14,9 @@ public class Goods {
     @Column(name = "userId")
     private Integer userId;
 
+    @Transient
+    private String userName;
+
     private String type;
 
     private String title;
@@ -46,6 +49,14 @@ public class Goods {
 
     public String getHeadPortrait() {
         return headPortrait;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public void setHeadPortrait(String headPortrait) {

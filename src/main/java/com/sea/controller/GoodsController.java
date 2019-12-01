@@ -110,7 +110,11 @@ public class GoodsController {
     @PostMapping("/getGoods")
     @ResponseBody
     public Goods  getGoods(Integer id){
+        if (id==null)return null;
         Goods goods=goodsMapper.selectByPrimaryKey(id);
+        User user=userMapper.queryUserById(goods.getUserId());
+        goods.setHeadPortrait(user.getHeadPortrait());
+        goods.setUserName(user.getUserName());
         String [] pictures=goods.getPicture().split(",");
         goods.setPictures(Arrays.asList(pictures));
         return goods;
