@@ -6,6 +6,8 @@ import com.sea.dao.GoodsMapper;
 import com.sea.dao.UserMapper;
 import com.sea.utils.JwtHelper;
 import com.sea.utils.Utils;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +29,16 @@ public class GoodsController {
     @Autowired
     private UserMapper userMapper;
 
+    private List<Goods> getGoodsUserHeadPortrait(List<Goods> goodsList){
+        for (int i=0;i<goodsList.size();i++){
+            Goods goods=goodsList.get(i);
+            goods.setHeadPortrait(userMapper.queryUserById(goods.getUserId()).getHeadPortrait());
+            String [] picture=goodsList.get(i).getPicture().split(",");
+            goodsList.get(i).setPicture(picture[0]);
+        }
+        return goodsList;
+    }
+
     @PostMapping("/releaseGoods")
     @ResponseBody
     public Map<String,String> releaseGoods(@RequestHeader(value = "Authorization")String token, String type, String title, String describe, String picture, String school, BigDecimal originalPrice, BigDecimal sellingPrice, BigDecimal freightCharge){
@@ -40,6 +52,10 @@ public class GoodsController {
         User dbUser=userMapper.selectByPrimaryKey(userName);
         if (dbUser==null){
             result.put("msg","userName not exist");
+            return result;
+        }
+        if (type==null||title==null||describe==null||picture==null||school==null||sellingPrice==null||originalPrice==null||freightCharge==null){
+            result.put("msg","param missing");
             return result;
         }
         List <String> pictureList=new ArrayList<>();
@@ -138,6 +154,32 @@ public class GoodsController {
         return goodsList;
     }
 
+    @ResponseBody
+    @PostMapping("/getSchoolGoods")
+    public List<Goods> getSchoolGoods(String school) throws JSONException {
+        if (school==null){
+            return null;
+        }
+        List<Goods> goodsList=goodsMapper.queryGoodsOnSchoolForLatestTen(school);
+        goodsList=getGoodsUserHeadPortrait(goodsList);
+        return goodsList;
+    }
 
+
+    @ResponseBody
+    @RequestMapping("/getAllGoods")
+    public List<Goods> getAllGoods(){
+        return getGoodsUserHeadPortrait(goodsMapper.selectAll());
+    }
+
+    @ResponseBody
+    @PostMapping("/getSchoolAllGoods")
+    public List<Goods> getSchoolAllGoods(String school){
+        if (school==null)return null;
+        Example example=new Example(Goods.class);
+        Example.Criteria criteria=example.createCriteria();
+        criteria.andEqualTo("school",school);
+        return getGoodsUserHeadPortrait(goodsMapper.selectByExample(example));
+    }
 
 }

@@ -13,4 +13,5 @@ import java.util.List;
 public interface GoodsMapper extends MyMapper<Goods> {
     List<Goods> searchLikeByTitleOrDescribe(@Param(value = "key") String key);
     List<Goods> enquiryForLatestTen();
+    List<Goods> queryGoodsOnSchoolForLatestTen(String school);
 }

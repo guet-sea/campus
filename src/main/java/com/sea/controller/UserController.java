@@ -33,7 +33,7 @@ public class UserController {
         if (dbUser != null) {
             if (dbUser.getUserName().equals(username) && dbUser.getPassword().equals(pwd)) {
                 if (dbUser.getType().equals("admin")) {
-                    result.put("msg", 200);
+                    result.put("code", 200);
                     result.put("msg", "ok");
                     try {
                         result.put("token", JwtHelper.createToken(username));
@@ -41,7 +41,7 @@ public class UserController {
                         e.printStackTrace();
                     }
                 } else {
-                    result.put("msg", 201);
+                    result.put("code", 201);
                     result.put("msg", "ok");
                     try {
                         result.put("token", JwtHelper.createToken(username));
@@ -89,6 +89,7 @@ public class UserController {
         User dbUser = userMapper.selectByPrimaryKey(userName);
         Map<String, Object> result = new HashMap<>();
         if (dbUser != null) {
+            result.put("msg","ok");
             result.put("question", dbUser.getQuestion());
         } else {
             result.put("msg", "error");
