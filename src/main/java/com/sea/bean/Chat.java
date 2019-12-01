@@ -6,16 +6,18 @@ public class Chat {
 
     private Integer id;
 
-    @Column(name = "fromId")
-    private Integer fromId;
+    @Column(name = "fromname")
+    private String from;
 
-    @Column(name = "toId")
-    private Integer toId;
+    @Column(name = "toname")
+    private String to;
 
     private String content;
 
-    private String time;
+    @Column(name = "msgTime")
+    private String msgTime;
 
+    @Column(name = "statusname")
     private  String status;
 
     public Integer getId() {
@@ -26,21 +28,6 @@ public class Chat {
         this.id = id;
     }
 
-    public Integer getFromId() {
-        return fromId;
-    }
-
-    public void setFromId(Integer fromId) {
-        this.fromId = fromId;
-    }
-
-    public Integer getToId() {
-        return toId;
-    }
-
-    public void setToId(Integer toId) {
-        this.toId = toId;
-    }
 
     public String getContent() {
         return content;
@@ -50,13 +37,6 @@ public class Chat {
         this.content = content;
     }
 
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
 
     public String getStatus() {
         return status;
@@ -66,14 +46,38 @@ public class Chat {
         this.status = status;
     }
 
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
+    }
+
+    public String getMsgTime() {
+        return msgTime;
+    }
+
+    public void setMsgTime(String msgTime) {
+        this.msgTime = msgTime;
+    }
+
     @Override
     public String toString() {
         return "Chat{" +
                 "id=" + id +
-                ", fromId=" + fromId +
-                ", toId=" + toId +
+                ", from='" + from + '\'' +
+                ", to='" + to + '\'' +
                 ", content='" + content + '\'' +
-                ", time='" + time + '\'' +
+                ", msgTime='" + msgTime + '\'' +
                 ", status='" + status + '\'' +
                 '}';
     }
