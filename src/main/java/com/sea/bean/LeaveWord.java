@@ -1,9 +1,12 @@
 package com.sea.bean;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 @Table(name = "leaveWord")
 public class LeaveWord {
@@ -11,16 +14,21 @@ public class LeaveWord {
     @Id
     private Integer id;
 
+    @NotBlank(message = "{leaveWord.username.NotBlank}")
+    @NotNull(message = "{leaveWord.username.notnull}")
     @Column(name = "userName")
     private String userName;
 
+    @NotNull(message = "{leaveWord.goodsId.notnull}")
     @Column(name = "goodsId")
     private Integer goodsId;
 
+    @NotBlank(message = "{leaveWord.content.NotBlank}")
+    @NotNull(message = "{leaveWord.content.notnull}")
     private String content;
 
     @Column(name = "messageTime")
-    private String time;
+    private String messageTime;
 
     @Transient
     private String headPortrait;
@@ -57,12 +65,12 @@ public class LeaveWord {
         this.content = content;
     }
 
-    public String getTime() {
-        return time;
+    public String getMessageTime() {
+        return messageTime;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setMessageTime(String messageTime) {
+        this.messageTime = messageTime;
     }
 
     public String getUserName() {
@@ -80,7 +88,8 @@ public class LeaveWord {
                 ", userName='" + userName + '\'' +
                 ", goodsId=" + goodsId +
                 ", content='" + content + '\'' +
-                ", time='" + time + '\'' +
+                ", messageTime='" + messageTime + '\'' +
+                ", headPortrait='" + headPortrait + '\'' +
                 '}';
     }
 }
