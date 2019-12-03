@@ -3,8 +3,36 @@ package com.sea.utils;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Utils {
+
+    private final static String OK="ok";
+
+    private final static String ERROR="error";
+
+    private final static String MSG="msg";
+
+    private final static String ILLEGAL_TOKEN="illegal token";
+
+    public final static Map<String,String> getOk(){
+        Map<String,String> map=new HashMap<>();
+        map.put(MSG,OK);
+        return map;
+    }
+
+    public final static Map<String,String> getError(){
+        Map<String,String> map=new HashMap<>();
+        map.put(MSG,ERROR);
+        return map;
+    }
+
+    public final static Map<String,String> getIllgalToken(){
+        Map<String,String> map=new HashMap<>();
+        map.put(ERROR,ILLEGAL_TOKEN);
+        return map;
+    }
 
     //模糊匹配
     public final static String getLike(String original){

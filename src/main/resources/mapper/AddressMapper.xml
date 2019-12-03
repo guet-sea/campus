@@ -5,4 +5,13 @@
     <select id="queryDefaultAddress" parameterType="String" resultType="com.sea.bean.Address">
         select * from address where userName=#{userName} and defaultAddress="是"
     </select>
+    <select id="queryAddressNotDefault" parameterType="String" resultType="com.sea.bean.Address">
+        select address,tel,fullName,addressId from address where userName=#{userName} and defaultAddress="否"
+    </select>
+    <update id="updateDefaultAddress" parameterType="int" >
+        update address set defaultAddress="是" where addressId=#{addressId}
+    </update>
+    <update id="cancelDefaultAddress" parameterType="String">
+        update address set defaultAddress="否" where defaultAddress="是" and userName=#{userName}
+    </update>
 </mapper>

@@ -84,7 +84,6 @@ public class LeaveWordController {
         //后端生成留言时间
         String msgTime = DateUtil.getyyyyMMddHHmmss();
         leaveWord.setMessageTime(msgTime);
-
         int inserRs = leaveWordMapper.insert(leaveWord);
         if(inserRs > 0){
             return ResultUtil.success(ResultEnum.SUCCESS,leaveWord);

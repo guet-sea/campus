@@ -33,7 +33,7 @@ public class JwtHelper {
     public static String createToken(String userName) throws Exception {
         Date iatDate = new Date();
         long now=System.currentTimeMillis();
-        long exp=now+1000*60*60*3;
+        long exp=now+1000*60*60*24*3;
         //过期时间
         Date expiresDate=new Date(exp);
         Map<String, Object> map=new HashMap<String, Object>();
@@ -118,7 +118,7 @@ public class JwtHelper {
 
     public static void main(String[] args) {
         try {
-            String token=JwtHelper.createToken("root");
+            String token=JwtHelper.createToken("666");
 //            String token="1eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJXRUIiLCJpc3MiOiJTZXJ2aWNlIiwidXNlck5hbWUiOiI2NjYiLCJleHAiOjE1NzQ4NDI3MDgsImlhdCI6MTU3NDgzMTkwOH0.VoDA2mSJy2Gi1CSh_HpEtxYvuZE9mP3yhKyR_iXa89g";
             System.out.println(token);
             System.out.println(JwtHelper.getUserName(token));

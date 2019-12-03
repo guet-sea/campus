@@ -5,7 +5,6 @@ import javax.persistence.Id;
 
 public class Address {
 
-    @Id
     @Column(name = "userName")
     private String userName;
 
@@ -14,20 +13,22 @@ public class Address {
 
     private String address;
 
+    @Id
     @Column(name = "addressId")
     private Integer addressId;
 
-    @Column(name = "default")
+    @Column(name = "defaultAddress")
     private String defaultAddress;
 
-    private String name;
+    @Column(name = "fullName")
+    private String fullName;
 
-    public String getName() {
-        return name;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getUserName() {

@@ -1,5 +1,7 @@
 package com.sea.controller;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.sea.bean.Goods;
 import com.sea.bean.User;
 import com.sea.dao.GoodsMapper;
@@ -7,7 +9,6 @@ import com.sea.dao.UserMapper;
 import com.sea.utils.JwtHelper;
 import com.sea.utils.Utils;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,6 +40,7 @@ public class GoodsController {
         return goodsList;
     }
 
+    //发布商品
     @PostMapping("/releaseGoods")
     @ResponseBody
     public Map<String,String> releaseGoods(@RequestHeader(value = "Authorization")String token, String type, String title, String describe, String picture, String school, BigDecimal originalPrice, BigDecimal sellingPrice, BigDecimal freightCharge){
@@ -80,6 +82,7 @@ public class GoodsController {
         return result;
     }
 
+    //搜索
     @ResponseBody
     @PostMapping("/searchLike")
     public List<Goods> searchByLike(String key){
@@ -99,6 +102,7 @@ public class GoodsController {
         return list;
     }
 
+    //修改商品信息
     @PostMapping("/updateGoods")
     @ResponseBody
     public Map<String,String> updateGoods(Integer id,String type, String title, String describe, String picture, String school,BigDecimal originalPrice,BigDecimal sellingPrice,BigDecimal freightCharge){
@@ -123,17 +127,24 @@ public class GoodsController {
         return map;
     }
 
+    //获取商品详情
     @PostMapping("/getGoods")
     @ResponseBody
-    public Goods  getGoods(Integer id){
+    public String getGoods(Integer id){
         if (id==null)return null;
+        JSONArray result=new JSONArray();
         Goods goods=goodsMapper.selectByPrimaryKey(id);
+        if (goods==null){
+            result.add(Utils.getError());
+            return result.toJSONString();
+        }
         User user=userMapper.queryUserById(goods.getUserId());
         goods.setHeadPortrait(user.getHeadPortrait());
         goods.setUserName(user.getUserName());
         String [] pictures=goods.getPicture().split(",");
         goods.setPictures(Arrays.asList(pictures));
-        return goods;
+        result.add(goods);
+        return result.toJSONString();
     }
 
     @ResponseBody
@@ -154,6 +165,7 @@ public class GoodsController {
         return goodsList;
     }
 
+    //获取当前校区的最新十个商品
     @ResponseBody
     @PostMapping("/getSchoolGoods")
     public List<Goods> getSchoolGoods(String school) throws JSONException {
@@ -166,18 +178,21 @@ public class GoodsController {
     }
 
 
+    //获取所有商品
     @ResponseBody
     @RequestMapping("/getAllGoods")
     public List<Goods> getAllGoods(){
         return getGoodsUserHeadPortrait(goodsMapper.selectAll());
     }
 
+    //获取该校区所有商品
     @ResponseBody
     @PostMapping("/getSchoolAllGoods")
     public List<Goods> getSchoolAllGoods(String school){
         if (school==null)return null;
         Example example=new Example(Goods.class);
         Example.Criteria criteria=example.createCriteria();
+        criteria.andEqualTo("status","在售");
         criteria.andEqualTo("school",school);
         return getGoodsUserHeadPortrait(goodsMapper.selectByExample(example));
     }

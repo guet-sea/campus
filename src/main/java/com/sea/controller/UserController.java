@@ -4,6 +4,8 @@ import com.sea.bean.User;
 import com.sea.dao.UserMapper;
 import com.sea.utils.JwtHelper;
 import com.sea.utils.Utils;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
@@ -25,6 +27,7 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
+    //用户登录
     @ResponseBody
     @RequestMapping("/login")
     public Map<String, Object> login(@RequestParam(name = "userName") String username, @RequestParam(name = "password") String pwd) {
@@ -59,6 +62,7 @@ public class UserController {
         return result;
     }
 
+    //用户注册
     @ResponseBody
     @PostMapping("/register")
     public String register(String userName, String password, String school, String answer, String question) {
@@ -69,6 +73,7 @@ public class UserController {
         User dbUser = userMapper.selectByPrimaryKey(userName);
         if (dbUser == null) {
             User user = new User();
+            user.setHeadPortrait("http://www.summerstudy.top/2019/12/03/3e5565e142591.jpg");
             user.setUserName(userName);
             user.setNewUser("是");
             user.setPassword(password);
@@ -83,6 +88,7 @@ public class UserController {
         return "用户名已注册";
     }
 
+    //忘记密码
     @ResponseBody
     @PostMapping("/forgetPassword")
     public Map<String, Object> forget(String userName) {
@@ -120,6 +126,7 @@ public class UserController {
         return map;
     }
 
+    //检查答案
     @ResponseBody
     @PostMapping("/checkAnswer")
     public Map<String, Object> checkAnswer(String answer, HttpSession session,@RequestHeader(value = "Authorization",required = false) String token, String userName) {
@@ -146,6 +153,7 @@ public class UserController {
         return result;
     }
 
+    //修改密码
     @ResponseBody
     @PostMapping("/changePassword")
     public Map<String, Object> changePassword(String password,@RequestHeader(value = "Authorization",required = false) String token, HttpSession session,String userName) {
@@ -169,6 +177,7 @@ public class UserController {
         return result;
     }
 
+    //修改电话号码
     @PostMapping("/changeTel")
     @ResponseBody
     public Map<String, Object> changeTel(String tel,@RequestHeader(value = "Authorization")String token) {
@@ -184,6 +193,64 @@ public class UserController {
             result.put("msg", "error");
         }
         return result;
+    }
+
+    //更新用户信息
+    @PostMapping("/updateUser")
+    @ResponseBody
+    public Map<String,Object> updateUser(@RequestHeader(value = "Authorization") String token, String school,
+                                         String question, String answer, String sex){
+        Map<String,Object> result=new HashMap<>();
+        String userName=JwtHelper.getUserName(token);
+        if (userName==null){
+            result.put("msg","error");
+            result.put("error","illegal token");
+            return result;
+        }
+        User user=userMapper.selectByPrimaryKey(userName);
+//        if(password!=null&&!user.getPassword().equals(password)){
+//            user.setPassword(password);
+//        }
+        if (school!=null&&!user.getSchool().equals(school)){
+            user.setSchool(school);
+        }
+        if (question!=null&&!user.getQuestion().equals(question)){
+            user.setQuestion(question);
+        }
+        if (answer!=null&&!user.getAnswer().equals(answer)){
+            user.setAnswer(answer);
+        }
+        if (sex!=null&&!user.getSex().equals(sex)){
+            user.setSex(sex);
+        }
+        System.out.println(user);
+        int n= userMapper.updateByPrimaryKey(user);
+        if (n>0) result.put("msg","ok");
+        return result;
+    }
+
+    //用户中心
+    @ResponseBody
+    @RequestMapping("/personal")
+    public String personal(@RequestHeader(value = "Authorization")String token) throws JSONException {
+        String userName=JwtHelper.getUserName(token);
+        JSONObject result=new JSONObject();
+        if (userName!=null){
+            User dbUser=userMapper.selectByPrimaryKey(userName);
+            //result.put("password",dbUser.getPassword());
+            result.put("school",dbUser.getSchool());
+            result.put("answer",dbUser.getAnswer());
+            result.put("headPortrait",dbUser.getHeadPortrait());
+            result.put("tel",dbUser.getTel());
+            result.put("question",dbUser.getQuestion());
+            result.put("sex",dbUser.getSex());
+            result.put("msg","ok");
+            return result.toString();
+        }
+        result.put("msg","error");
+        result.put("error","illegal token");
+
+        return result.toString();
     }
 
     @RequestMapping("/index")
