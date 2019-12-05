@@ -2,10 +2,15 @@ package com.sea.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.sea.bean.Browse;
+import com.sea.bean.Favorites;
 import com.sea.bean.Goods;
 import com.sea.bean.User;
+import com.sea.dao.BrowseMapper;
+import com.sea.dao.FavoritesMapper;
 import com.sea.dao.GoodsMapper;
 import com.sea.dao.UserMapper;
+import com.sea.utils.DateUtil;
 import com.sea.utils.JwtHelper;
 import com.sea.utils.Utils;
 import org.json.JSONException;
@@ -29,6 +34,12 @@ public class GoodsController {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private FavoritesMapper favoritesMapper;
+
+    @Autowired
+    private BrowseMapper browseMapper;
 
     private List<Goods> getGoodsUserHeadPortrait(List<Goods> goodsList){
         for (int i=0;i<goodsList.size();i++){
@@ -130,23 +141,48 @@ public class GoodsController {
     //获取商品详情
     @PostMapping("/getGoods")
     @ResponseBody
-    public String getGoods(Integer id){
-        if (id==null)return null;
+    public String getGoods(@RequestHeader(value = "Authorization")String token,Integer id){
+        String userId=JwtHelper.getUserId(token);
         JSONArray result=new JSONArray();
+        if (id==null||userId==null){
+            result.add(Utils.getError());
+            return result.toJSONString();
+        }
+
         Goods goods=goodsMapper.selectByPrimaryKey(id);
         if (goods==null){
             result.add(Utils.getError());
             return result.toJSONString();
         }
         User user=userMapper.queryUserById(goods.getUserId());
+        if (user==null){
+            result.add(Utils.getError());
+            return result.toJSONString();
+        }
+        Example example=new Example(Favorites.class);
+        Example.Criteria criteria=example.createCriteria();
+        criteria.andEqualTo("userId",user.getId());
+        criteria.andEqualTo("goodsId",goods.getId());
+        Favorites favorites=favoritesMapper.selectOneByExample(example);
+        if (favorites==null){
+            goods.setFavorite("no");
+        }else{
+            goods.setFavorite("yes");
+        }
         goods.setHeadPortrait(user.getHeadPortrait());
         goods.setUserName(user.getUserName());
         String [] pictures=goods.getPicture().split(",");
         goods.setPictures(Arrays.asList(pictures));
         result.add(goods);
+        Browse browse=new Browse();
+        browse.setUserId(Integer.parseInt(userId));
+        browse.setGoodsId(id);
+        browse.setTime(DateUtil.getyyyyMMddHHmmss());
+        browseMapper.insert(browse);
         return result.toJSONString();
     }
 
+    //首页
     @ResponseBody
     @RequestMapping("/index")
     public List<Goods> index(){

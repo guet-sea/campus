@@ -2,15 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e90a09e8-4b30-4e45-97f3-1eb388b6e800" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sea/controller/BrowseController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sea/controller/FavoritesController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sea/bean/Browse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sea/bean/Browse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sea/bean/Favorites.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sea/bean/Favorites.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sea/bean/Goods.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sea/bean/Goods.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sea/controller/GoodsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sea/controller/GoodsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sea/controller/LeaveWordController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sea/controller/LeaveWordController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sea/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sea/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sea/dao/GoodsMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sea/dao/GoodsMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/GoodsMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/GoodsMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sea/dao/BrowseMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sea/dao/BrowseMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sea/dao/FavoritesMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sea/dao/FavoritesMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sea/utils/JwtHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sea/utils/JwtHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sea/utils/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sea/utils/Utils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/sea/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sea/controller/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/sea/utils/Utils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sea/utils/Utils.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -186,6 +191,10 @@
       <workItem from="1575084883191" duration="908000" />
       <workItem from="1575129505046" duration="3323000" />
       <workItem from="1575174012598" duration="12028000" />
+      <workItem from="1575250250579" duration="32278000" />
+      <workItem from="1575340108657" duration="13194000" />
+      <workItem from="1575464367879" duration="11801000" />
+      <workItem from="1575512561606" duration="7029000" />
     </task>
     <task id="LOCAL-00001" summary="完善用户控制器功能和修改数据表冲突项">
       <created>1574425883253</created>
@@ -194,7 +203,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574425883253</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="完善商品，和用户接口">
+      <created>1575210300652</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1575210300652</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -230,6 +246,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="完善用户控制器功能" />
     <MESSAGE value="完善用户控制器功能和修改数据表冲突项" />
-    <option name="LAST_COMMIT_MESSAGE" value="完善用户控制器功能和修改数据表冲突项" />
+    <MESSAGE value="完善商品，和用户接口" />
+    <option name="LAST_COMMIT_MESSAGE" value="完善商品，和用户接口" />
   </component>
 </project>

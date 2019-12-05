@@ -16,9 +16,26 @@ public class Utils {
 
     private final static String ILLEGAL_TOKEN="illegal token";
 
+    private final static String PARAM_MISSING="param missing";
+
+    private final static String PARAM_DOES_NOT_CORRESPOND="parameter does not correspond";
+
+
+
     public final static Map<String,String> getOk(){
         Map<String,String> map=new HashMap<>();
         map.put(MSG,OK);
+        return map;
+    }
+    public final static Map<String,String> getNotCorrespond(){
+        Map<String,String> map=new HashMap<>();
+        map.put(ERROR,PARAM_DOES_NOT_CORRESPOND);
+        return map;
+    }
+
+    public final static Map<String,String> getParamMiss(){
+        Map<String,String> map=new HashMap<>();
+        map.put(ERROR,PARAM_MISSING);
         return map;
     }
 

@@ -47,6 +47,17 @@ public class Goods {
     @Transient
     private String headPortrait;
 
+    @Transient
+    private String favorite;
+
+    public String getFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(String favorite) {
+        this.favorite = favorite;
+    }
+
     public String getHeadPortrait() {
         return headPortrait;
     }

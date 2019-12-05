@@ -1,6 +1,7 @@
 package com.sea.bean;
 
 import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -9,6 +10,7 @@ import java.util.Date;
 @Table(name = "collection")
 public class Favorites {
 
+    @Id
     private  Integer id;
 
     @Column(name = "userId")

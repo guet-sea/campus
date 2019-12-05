@@ -30,7 +30,7 @@ public class JwtHelper {
      * @param userName
      *            登录成功后用户user_id, 参数user_id不可传空
      */
-    public static String createToken(String userName) throws Exception {
+    public static String createToken(String userName,Integer userId) throws Exception {
         Date iatDate = new Date();
         long now=System.currentTimeMillis();
         long exp=now+1000*60*60*24*3;
@@ -44,6 +44,7 @@ public class JwtHelper {
         // param backups {iss:Service, aud:APP}
         String token = JWT.create().withHeader(map) // header
                 .withClaim("iss", "Service") // payload
+                .withClaim("userId",null==userId?null : userId.toString())
                 .withClaim("aud", "WEB").withClaim("userName", null == userName ? null : userName.toString())
                 .withIssuedAt(iatDate) // sign time
                 .withExpiresAt(expiresDate) // expire time
@@ -78,14 +79,6 @@ public class JwtHelper {
      * @param token
      * @return userName
      */
-    public static String getAppUID(String token) {
-        Map<String, Claim> claims = verifyToken(token);
-        Claim user_id_claim = claims.get("user_id");
-        if (null == user_id_claim || StringUtils.isEmpty(user_id_claim.asString())) {
-            // token 校验失败, 抛出Token验证非法异常
-        }
-        return user_id_claim.asString();
-    }
     public static Date getExpiresTime(String token) {
     	DecodedJWT jwt = null;
     	Date expiresTime=null;
@@ -104,7 +97,7 @@ public class JwtHelper {
 	}
     
     public static  String  getUserName(String token) {
-    	Map<String, Claim> claims = verifyToken(token);
+        Map<String, Claim> claims = verifyToken(token);
         if (claims==null)return null;
         Claim userNameClaim = claims.get("userName");
         if (null == userNameClaim || StringUtils.isEmpty(userNameClaim.asString())) {
@@ -113,16 +106,30 @@ public class JwtHelper {
             return null;
         }
         return userNameClaim.asString();
-		
-	}
+
+    }
+
+    public static  String  getUserId(String token) {
+        Map<String, Claim> claims = verifyToken(token);
+        if (claims==null)return null;
+        Claim userNameClaim = claims.get("userId");
+        if (null == userNameClaim || StringUtils.isEmpty(userNameClaim.asString())) {
+            // token 校验失败, 抛出Token验证非法异常
+            System.out.println("token 校验失败");
+            return null;
+        }
+        return userNameClaim.asString();
+
+    }
 
     public static void main(String[] args) {
         try {
-            String token=JwtHelper.createToken("666");
+            String token=JwtHelper.createToken("666",25);
 //            String token="1eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJXRUIiLCJpc3MiOiJTZXJ2aWNlIiwidXNlck5hbWUiOiI2NjYiLCJleHAiOjE1NzQ4NDI3MDgsImlhdCI6MTU3NDgzMTkwOH0.VoDA2mSJy2Gi1CSh_HpEtxYvuZE9mP3yhKyR_iXa89g";
             System.out.println(token);
             System.out.println(JwtHelper.getUserName(token));
             Date s=null;
+            System.out.println(JwtHelper.getUserId(token));
             s=JwtHelper.getExpiresTime(token);
             System.out.println(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(s));
         } catch (Exception e) {

@@ -1,6 +1,9 @@
 package com.sea.bean;
 
 import javax.persistence.Column;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Browse {
 
@@ -13,7 +16,7 @@ public class Browse {
     @Column(name = "goodsId")
     private Integer goodsId;
 
-    private String time;
+    private Date time;
 
     public Integer getId() {
         return id;
@@ -40,11 +43,16 @@ public class Browse {
     }
 
     public String getTime() {
-        return time;
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(time);
     }
 
     public void setTime(String time) {
-        this.time = time;
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            this.time=sdf.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

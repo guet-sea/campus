@@ -39,7 +39,7 @@ public class UserController {
                     result.put("code", 200);
                     result.put("msg", "ok");
                     try {
-                        result.put("token", JwtHelper.createToken(username));
+                        result.put("token", JwtHelper.createToken(username,dbUser.getId()));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -47,7 +47,7 @@ public class UserController {
                     result.put("code", 201);
                     result.put("msg", "ok");
                     try {
-                        result.put("token", JwtHelper.createToken(username));
+                        result.put("token", JwtHelper.createToken(username,dbUser.getId()));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
