@@ -1,8 +1,10 @@
 package com.sea.controller;
 
 import com.sea.bean.Evaluation;
+import com.sea.bean.GoodOrder;
 import com.sea.bean.User;
 import com.sea.dao.EvaluationMapper;
+import com.sea.dao.OrderMapper;
 import com.sea.dao.UserMapper;
 import com.sea.utils.JwtHelper;
 import org.json.JSONException;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import tk.mybatis.mapper.entity.Example;
 
 @Controller
 @RequestMapping("/Evaluation")
@@ -23,6 +26,8 @@ public class EvaluationController {
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private OrderMapper orderMapper;
 
     @ResponseBody
     @PostMapping("/giveEvaluation")
