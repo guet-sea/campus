@@ -19,11 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import tk.mybatis.mapper.entity.Example;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 @Controller
 @RequestMapping("/Evaluation")
 public class EvaluationController {
@@ -33,6 +28,8 @@ public class EvaluationController {
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private OrderMapper orderMapper;
 
     @Autowired
     private OrderMapper orderMapper;

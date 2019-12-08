@@ -38,8 +38,7 @@
     <select />
   </component>
   <component name="DefaultGradleProjectSettings">
-    <option name="testRunner" value="GRADLE" />
-    <option name="delegatedBuild" value="true" />
+    <option name="isMigrated" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -190,11 +189,10 @@
       <workItem from="1574991772291" duration="7547000" />
       <workItem from="1575084883191" duration="908000" />
       <workItem from="1575129505046" duration="3323000" />
-      <workItem from="1575174012598" duration="12028000" />
-      <workItem from="1575250250579" duration="32278000" />
-      <workItem from="1575340108657" duration="13194000" />
-      <workItem from="1575464367879" duration="11801000" />
-      <workItem from="1575512561606" duration="7029000" />
+      <workItem from="1575174012598" duration="14710000" />
+      <workItem from="1575293812125" duration="472000" />
+      <workItem from="1575374652009" duration="6944000" />
+      <workItem from="1575597656204" duration="460000" />
     </task>
     <task id="LOCAL-00001" summary="完善用户控制器功能和修改数据表冲突项">
       <created>1574425883253</created>
@@ -245,8 +243,5 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="完善用户控制器功能" />
-    <MESSAGE value="完善用户控制器功能和修改数据表冲突项" />
-    <MESSAGE value="完善商品，和用户接口" />
-    <option name="LAST_COMMIT_MESSAGE" value="完善商品，和用户接口" />
   </component>
 </project>

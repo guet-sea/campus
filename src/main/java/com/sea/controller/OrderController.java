@@ -52,8 +52,8 @@ public class OrderController {
     }
 
     @ResponseBody
-    @RequestMapping("/myOrder")
-    public Result<List<Object>> myOrder(@RequestParam int id){
+    @RequestMapping("/myBuyOrder")
+    public Result<List<Object>> myBuyOrder(@RequestParam int id){
         Example example = new Example(GoodOrder.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("buyerid",id);
@@ -65,6 +65,19 @@ public class OrderController {
         }
     }
 
+    @ResponseBody
+    @RequestMapping("/mySellOrder")
+    public Result<List<Object>> mySellOrder(@RequestParam int id){
+        Example example = new Example(GoodOrder.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("sellerid",id);
+        List<GoodOrder> list = orderMapper.selectByExample(example);
+        if(list.isEmpty()){
+            return ResultUtil.success(ResultEnum.SUCCESS,"您还没有卖出任何一件东西哦");
+        }else {
+            return ResultUtil.success(ResultEnum.SUCCESS,list);
+        }
+    }
     @ResponseBody
     @RequestMapping("/changeOrderStatus")
     public Result<Integer> changeOrderStatus(@RequestParam int orderid, @RequestParam String status){
@@ -170,22 +183,26 @@ public class OrderController {
     //结算，order+nopay ---> paid+nosend
     @ResponseBody
     @RequestMapping(value = "/settleOrder", method = RequestMethod.POST)
-    public Result<Object> settle(@RequestHeader(value = "Authorization")String token,int orderid, String status, String password){
+    public Result<Object> settle(@RequestHeader(value = "Authorization")String token,
+                                 int orderid,
+                                 String status,
+                                 String password){
+        System.out.println(status);
         String userName= JwtHelper.getUserName(token);
         if (userName==null){
-            return ResultUtil.error(ResultEnum.ERROR,token);
+            return ResultUtil.error(ResultEnum.ERROR,"name null");
         }
         User dbUser=userMapper.selectByPrimaryKey(userName);
         if (dbUser==null){
-            return ResultUtil.error(ResultEnum.ERROR,token);
-        }else if(status == "order+nopay"){
+            return ResultUtil.error(ResultEnum.ERROR,"dbUser null");
+        }else if(status.equals("orderNopay")){
             //密码错误，直接返回
             if(!dbUser.getPassword().equals(password)){
                 return ResultUtil.error(ResultEnum.ERROR_PWDWRONG);
             }
             //密码正确，开始改变订单状态
             GoodOrder order = new GoodOrder();
-            order.setOrderstatus("paid+nosend");
+            order.setOrderstatus("paidNosend");
             Example example = new Example(GoodOrder.class);
             Example.Criteria criteria = example.createCriteria();
             criteria.andEqualTo("id",orderid);
@@ -200,7 +217,7 @@ public class OrderController {
                 return ResultUtil.error(ResultEnum.ERROR);
             }
         }else{
-            return ResultUtil.error(ResultEnum.ERROR);
+            return ResultUtil.error(ResultEnum.ERROR,"status not match");
         }
     }
 
@@ -214,7 +231,10 @@ public class OrderController {
     //收货，send+norecv ---> received
     @ResponseBody
     @RequestMapping(value = "/receiveOrder", method = RequestMethod.POST)
-    public Result<Object> receive(@RequestHeader(value = "Authorization")String token,int orderid, String status, String password){
+    public Result<Object> receive(@RequestHeader(value = "Authorization")String token,
+                                  int orderid,
+                                  String status,
+                                  String password){
         String userName= JwtHelper.getUserName(token);
         if (userName==null){
             return ResultUtil.error(ResultEnum.ERROR,token);
@@ -222,7 +242,7 @@ public class OrderController {
         User dbUser=userMapper.selectByPrimaryKey(userName);
         if (dbUser==null){
             return ResultUtil.error(ResultEnum.ERROR,token);
-        }else if(status == "send+norecv"){
+        }else if(status.equals("sendNorecv")){
             //密码错误，直接返回
             if(!dbUser.getPassword().equals(password)){
                 return ResultUtil.error(ResultEnum.ERROR_PWDWRONG);
@@ -257,7 +277,10 @@ public class OrderController {
     //交易成功，received ---> tradeok
     @ResponseBody
     @RequestMapping(value = "/tradeokOrder", method = RequestMethod.POST)
-    public Result<Object> tradeok(@RequestHeader(value = "Authorization")String token,int orderid, String status, String password){
+    public Result<Object> tradeok(@RequestHeader(value = "Authorization")String token,
+                                  int orderid,
+                                  String status,
+                                  String password){
         String userName= JwtHelper.getUserName(token);
         if (userName==null){
             return ResultUtil.error(ResultEnum.ERROR,token);
@@ -265,7 +288,7 @@ public class OrderController {
         User dbUser=userMapper.selectByPrimaryKey(userName);
         if (dbUser==null){
             return ResultUtil.error(ResultEnum.ERROR,token);
-        }else if(status == "received"){
+        }else if(status.equals("received")){
             //密码错误，直接返回
             if(!dbUser.getPassword().equals(password)){
                 return ResultUtil.error(ResultEnum.ERROR_PWDWRONG);
@@ -288,6 +311,103 @@ public class OrderController {
             }
         }else{
             return ResultUtil.error(ResultEnum.ERROR);
+        }
+    }
+
+
+
+    //
+// orderNopay
+// paidNosend        //结算，order+nopay ---> paid+nosend
+// sendNorecv        //发货，paid+nosend ---> send+norecv       卖家
+// received           //收货，send+norecv ---> received
+// tradeok            //交易成功，received ---> tradeok
+// acancel bcancel abcancel
+//发货，卖家
+    @ResponseBody
+    @RequestMapping(value = "/sendOrder", method = RequestMethod.POST)
+    public Result<Object> sendOrder(@RequestHeader(value = "Authorization")String token,
+                                  int orderid,
+                                  String status,
+                                  String password){
+        String userName= JwtHelper.getUserName(token);
+        if (userName==null){
+            return ResultUtil.error(ResultEnum.ERROR,token);
+        }
+        User dbUser=userMapper.selectByPrimaryKey(userName);
+        if (dbUser==null){
+            return ResultUtil.error(ResultEnum.ERROR,token);
+        }else if(status.equals("paidNosend")){
+            //密码错误，直接返回
+            if(!dbUser.getPassword().equals(password)){
+                return ResultUtil.error(ResultEnum.ERROR_PWDWRONG);
+            }
+            //密码正确，开始改变订单状态
+            GoodOrder order = new GoodOrder();
+            order.setOrderstatus("sendNorecv");
+            Example example = new Example(GoodOrder.class);
+            Example.Criteria criteria = example.createCriteria();
+            criteria.andEqualTo("id",orderid);
+            criteria.andEqualTo("orderstatus",status);
+            criteria.andEqualTo("sellerid",dbUser.getId());
+
+            int result = orderMapper.updateByExampleSelective(order,example);
+            order = orderMapper.selectByPrimaryKey(orderid);
+            if(result > 0){
+                return ResultUtil.success(ResultEnum.SUCCESS,order);
+            }else {
+                return ResultUtil.error(ResultEnum.ERROR);
+            }
+        }else{
+            return ResultUtil.error(ResultEnum.ERROR);
+        }
+    }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/cancelOrder", method = RequestMethod.POST)
+    public Result<Object> cancelOrder(@RequestHeader(value = "Authorization")String token,
+                                    int orderid,
+                                    String status){
+        String userName= JwtHelper.getUserName(token);
+        if (userName==null){
+            return ResultUtil.error(ResultEnum.ERROR,token);
+        }
+        User dbUser=userMapper.selectByPrimaryKey(userName);
+        if (dbUser==null){
+            return ResultUtil.error(ResultEnum.ERROR,token);
+        }else {
+            GoodOrder order = orderMapper.selectByPrimaryKey(orderid);
+            if(order.getBuyerid() == dbUser.getId()){
+                //改变订单状态
+                if(status.equals("bcancel")){
+                    order.setOrderstatus("abcancel");
+                }else {
+                    order.setOrderstatus("acancel");
+                }
+            }else if(order.getSellerid() == dbUser.getId()) {
+                //改变订单状态
+                if(status.equals("acancel")){
+                    order.setOrderstatus("abcancel");
+                }else {
+                    order.setOrderstatus("bcancel");
+                }
+            }else{
+                return ResultUtil.error(ResultEnum.ERROR);
+            }
+
+            Example example = new Example(GoodOrder.class);
+            Example.Criteria criteria = example.createCriteria();
+            criteria.andEqualTo("id",orderid);
+            criteria.andEqualTo("orderstatus",status);
+
+            int result = orderMapper.updateByExampleSelective(order,example);
+            order = orderMapper.selectByPrimaryKey(orderid);
+            if(result > 0){
+                return ResultUtil.success(ResultEnum.SUCCESS,order);
+            }else {
+                return ResultUtil.error(ResultEnum.ERROR,order);
+            }
         }
     }
 }
