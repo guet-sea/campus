@@ -5,5 +5,4 @@
     <select id="enquiryGoodsLeaveWord" parameterType="int" resultType="com.sea.bean.LeaveWord">
         select * from leaveWord where goodsId=#{goodsId} order by messageTime
     </select>
-
 </mapper>

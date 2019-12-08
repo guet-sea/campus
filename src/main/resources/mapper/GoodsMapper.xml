@@ -8,5 +8,8 @@
     <select id="enquiryForLatestTen" resultType="com.sea.bean.Goods">
         SELECT * FROM goods WHERE `status`='在售' ORDER BY id DESC LIMIT 10
     </select>
+    <select id="queryGoodsOnSchoolForLatestTen" parameterType="String" resultType="com.sea.bean.Goods">
+        select * from goods where school = #{school} and `status`='在售' order by id desc LIMIT 10
+    </select>
 
 </mapper>

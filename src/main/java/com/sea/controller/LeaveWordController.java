@@ -32,12 +32,20 @@ public class LeaveWordController {
     @PostMapping("/getGoodsLeaveWord")
     public List<LeaveWord> getGoodsLeaveWord(Integer goodsId){
         if (goodsId!=null){
-            //List<LeaveWord> leaveWords=leaveWordMapper.enquiryGoodsLeaveWord(goodsId);
-            Example example=new Example(LeaveWord.class);
-            Example.Criteria criteria=example.createCriteria();
-            criteria.andEqualTo("goodsId",goodsId);
-            //List<LeaveWord> leaveWords=leaveWordMapper.selectByExample(example);
-            List<LeaveWord> leaveWords = leaveWordMapper.enquiryGoodsLeaveWord(goodsId);
+//<<<<<<< HEAD
+            List<LeaveWord> leaveWords=leaveWordMapper.enquiryGoodsLeaveWord(goodsId);
+//            Example example=new Example(LeaveWord.class);
+//            Example.Criteria criteria=example.createCriteria();
+//            criteria.andEqualTo("goodsId",goodsId);
+//            List<LeaveWord> leaveWords=leaveWordMapper.selectByExample(example);
+//=======
+//            //List<LeaveWord> leaveWords=leaveWordMapper.enquiryGoodsLeaveWord(goodsId);
+//            Example example=new Example(LeaveWord.class);
+//            Example.Criteria criteria=example.createCriteria();
+//            criteria.andEqualTo("goodsId",goodsId);
+//            //List<LeaveWord> leaveWords=leaveWordMapper.selectByExample(example);
+//            List<LeaveWord> leaveWords = leaveWordMapper.enquiryGoodsLeaveWord(goodsId);
+//>>>>>>> 028ae90224894f66abb6e7b622b9314738ba7cf7
             for (int i=0;i<leaveWords.size();i++){
                 String userName=leaveWords.get(i).getUserName();
                 User user=userMapper.selectByPrimaryKey(userName);
@@ -76,7 +84,6 @@ public class LeaveWordController {
         //后端生成留言时间
         String msgTime = DateUtil.getyyyyMMddHHmmss();
         leaveWord.setMessageTime(msgTime);
-
         int inserRs = leaveWordMapper.insert(leaveWord);
         if(inserRs > 0){
             return ResultUtil.success(ResultEnum.SUCCESS,leaveWord);
@@ -101,7 +108,6 @@ public class LeaveWordController {
             Example.Criteria criteria = example.createCriteria();
             criteria.andEqualTo("id",id);
             criteria.andEqualTo("userName",dbUser.getUserName());
-
             int result = leaveWordMapper.deleteByExample(example);
             if(result>0){
                 return ResultUtil.success(ResultEnum.SUCCESS);

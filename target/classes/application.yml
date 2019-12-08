@@ -1,7 +1,7 @@
 server:
   port: 8080
   session:
-    timeout: 7200
+    timeout: 120
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
@@ -18,13 +18,13 @@ spring:
       max-file-size: 50Mb
       max-request-size: 200Mb
       #物理地址
-      location: D:/upload/picture/
-  resources:
+      #location: D:/upload/picture/
+  #resources:
     #静态资源所在的地址
-    static-locations: file:${spring.http.multipart.location}
-  mvc:
+    #static-locations: file:${spring.http.multipart.location}
+  #mvc:
     #表示所有的访问都经过静态资源路径
-    static-path-pattern: /media/**
+    #static-path-pattern: /media/**
 
 mybatis:
   #自定义mapper配置路径
@@ -53,6 +53,6 @@ mapper:
 
 
 
-logging:
-  config: classpath:logback-spring.xml
-  path: D:/nmyslog/nmys
+#logging:
+# config: classpath:logback-spring.xml
+#  path: D:/nmyslog/nmys

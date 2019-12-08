@@ -14,6 +14,9 @@ public class Goods {
     @Column(name = "userId")
     private Integer userId;
 
+    @Transient
+    private String userName;
+
     private String type;
 
     private String title;
@@ -44,8 +47,27 @@ public class Goods {
     @Transient
     private String headPortrait;
 
+    @Transient
+    private String favorite;
+
+    public String getFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(String favorite) {
+        this.favorite = favorite;
+    }
+
     public String getHeadPortrait() {
         return headPortrait;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public void setHeadPortrait(String headPortrait) {
