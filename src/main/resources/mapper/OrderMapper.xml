@@ -19,5 +19,36 @@
         <result column="ordertime" jdbcType="VARCHAR" property="ordertime" />
         <result column="school" jdbcType="VARCHAR" property="school" />
         <result column="orderstatus" jdbcType="VARCHAR" property="orderstatus" />
+        <result column="fullname" jdbcType="VARCHAR" property="fullname" />
+        <result column="logNum" jdbcType="VARCHAR" property="logNum" />
     </resultMap>
+    <select id="getMyBuyOrderListWithPic" parameterType="int" resultType="com.sea.bean.GoodOrder">
+        select goodorder.*, goods.`picture`
+        from goods, goodorder
+        where goods.`id` = goodorder.`goodsId` and buyerId=#{buyerid}
+        order by case orderStatus
+            when '待付款' then 1
+            when '待发货' then 2
+            when '待收货' then 3
+            when '已完成' then 4
+            when '买家取消' then 5
+            when '卖家取消' then 6
+            when '订单已取消' then 7
+        end
+    </select>
+    <select id="getMySellOrderListWithPic" parameterType="int" resultType="com.sea.bean.GoodOrder">
+        select goodorder.*, goods.`picture`
+        from goods, goodorder
+        where goods.`id` = goodorder.`goodsId` and sellerId=#{sellerid}
+        order by case orderStatus
+            when '待付款' then 1
+            when '待发货' then 2
+            when '待收货' then 3
+            when '已完成' then 4
+            when '买家取消' then 5
+            when '卖家取消' then 6
+            when '订单已取消' then 7
+        end
+    </select>
 </mapper>
+

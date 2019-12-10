@@ -31,8 +31,6 @@ public class EvaluationController {
     @Autowired
     private OrderMapper orderMapper;
 
-    @Autowired
-    private OrderMapper orderMapper;
 
     //评价
     @ResponseBody
