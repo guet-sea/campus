@@ -2,10 +2,7 @@ package com.sea.bean;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
@@ -23,7 +20,7 @@ public class GoodOrder {
     @Column(name = "goodsId")
     private Integer goodsid;
 
-    @NotNull(message = "{goodorder.buyerid.notnull}")
+    //    @NotNull(message = "{goodorder.buyerid.notnull}")
     @Column(name = "buyerId")
     private Integer buyerid;
 
@@ -64,10 +61,27 @@ public class GoodOrder {
     @NotNull(message = "{goodorder.school.notnull}")
     private String school;
 
-    @NotBlank(message = "{goodorder.orderstatus.NotBlank}")
-    @NotNull(message = "{goodorder.orderstatus.notnull}")
+    //    @NotBlank(message = "{goodorder.orderstatus.NotBlank}")
+//    @NotNull(message = "{goodorder.orderstatus.notnull}")
     @Column(name = "orderStatus")
     private String orderstatus;
+
+    @Column(name = "fullname")
+    private String fullname;
+
+    @Column(name = "logNum")
+    private String logNum;
+
+    @Transient
+    private String goodsPic;
+
+    public String getGoodsPic() {
+        return goodsPic;
+    }
+
+    public void setGoodsPic(String goodsPic) {
+        this.goodsPic = goodsPic;
+    }
 
     /**
      * @return id
@@ -265,6 +279,22 @@ public class GoodOrder {
         this.orderstatus = status;
     }
 
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
+    public String getLogNum() {
+        return logNum;
+    }
+
+    public void setLogNum(String logNum) {
+        this.logNum = logNum;
+    }
+
     @Override
     public String toString() {
         return "GoodOrder{" +
@@ -279,9 +309,11 @@ public class GoodOrder {
                 ", discounts=" + discounts +
                 ", finalprice=" + finalprice +
                 ", ordernum='" + ordernum + '\'' +
-                ", time='" + ordertime + '\'' +
+                ", ordertime='" + ordertime + '\'' +
                 ", school='" + school + '\'' +
-                ", status='" + orderstatus + '\'' +
+                ", orderstatus='" + orderstatus + '\'' +
+                ", fullname='" + fullname + '\'' +
+                ", logNum='" + logNum + '\'' +
                 '}';
     }
 }
